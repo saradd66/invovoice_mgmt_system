@@ -7,8 +7,10 @@ $customer_id = $order_detail["customerid"];
 $customer_query = "select * from customer where cid = '$customer_id'";
 $customer_detail = mysqli_fetch_assoc(mysqli_query($conn, $customer_query));
 
-$cart_query = "select * from cart where orderId = '$order_id'";
-$cart_detail_arr = mysqli_fetch_assoc(mysqli_query($conn, $cart_query));
+$cart_query = "select * from `cart` where `orderId` = '$order_id'";
+$cart_result = mysqli_query($conn, $cart_query);
+$cart_detail_arr = mysqli_fetch_all($cart_result);
+echo mysqli_error($conn);
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +51,7 @@ $cart_detail_arr = mysqli_fetch_assoc(mysqli_query($conn, $cart_query));
 
     </tr>
 
-    <table  class="table table-dark mx-auto">
+    <table  class="table table-dar mx-auto">
 	<thead>
 		<tr>
 		    <th>SN</th>
@@ -64,22 +66,24 @@ $cart_detail_arr = mysqli_fetch_assoc(mysqli_query($conn, $cart_query));
 
     $sn=1;
     $grand_total; 
+    //var_dump($cart_detail_arr);
+
     foreach($cart_detail_arr as $row)
 	{
-        $productName = $cart_detail_arr['productName'];
+        $productName = $row[1];
         $product_query = "select * from product where name= '$productName'";
        $price = mysqli_fetch_assoc(mysqli_query($conn, $product_query))['price'];
-        $total_price = intval($cart_detail_arr['quantity']) * intval($price);
+        $total_price = intval($cart_detail_arr[2]) * intval($price);
         $grand_total+= $total_price;
         
         ?>
 		<tr>
 		<td><?php echo $sn; ?> </td>
-		<td> <?php echo $cart_detail_arr['productName'];?></td>
-		<td> <?php echo $cart_detail_arr['quantity'];?></td>
+		<td> <?php echo $row[1];?></td>
+		<td> <?php echo $row[2];?></td>
 		
-        <td><?php echo $price; ?></td>
-        <td><?php echo $total_price; ?></td>
+        <td><?php echo "Rs ".$price; ?></td>
+        <td><?php echo "Rs ". $total_price; ?></td>
 		</tr>
 	<?php 
 		$sn++; 
@@ -87,9 +91,9 @@ $cart_detail_arr = mysqli_fetch_assoc(mysqli_query($conn, $cart_query));
     $vat = intval($grand_total) * 13 / 100;
     $net_total = intval($grand_total) + $vat;
     ?>
-    <tr><td><?php echo $vat; ?></td></tr>
-    <tr><td><?php echo $grand_total; ?></td></tr>
-    <tr><td><?php echo $net_total; ?></td></tr>
+    <tr><td></td><td></td><td></td><td><b>13 % VAT : </b></td><td>Rs <?php echo $vat; ?></td></tr>
+    <tr><td></td><td></td><td></td><td><b>Grand Total: </b></td><td>Rs <?php echo $grand_total; ?></td></tr>
+    <tr><td></td><td></td><td></td><td><b>Net Total: </b></td><td>Rs <?php echo $net_total; ?></td></tr>
 </tbody>
 </table>
 
