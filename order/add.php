@@ -22,8 +22,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     for($i=0;$i<=intval($nop)-1;$i++){
         $product=$product_arr[$i];
         $quantity=$qty_arr[$i];
+        $total_quantity = mysqli_fetch_assoc(mysqli_query($conn,"select * from product where name = '$product'"))["quantity"];
+        $rem_quantity = intval($total_quantity) - intval($quantity);
         $cart_query="insert into cart(productName,quantity,orderId) values('$product','$quantity','$oid')";
         mysqli_query($conn,$cart_query);
+        $dec_query = "update product set quantity= '$rem_quantity' where name = '$product'";
+        mysqli_query($conn, $dec_query);
         echo "<script> alert ('New Order Added');</script>";
     }
 }

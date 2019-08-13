@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="welcome.php"><i class="fa fa-home"></i>&nbsp Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="../welcome.php"><i class="fa fa-home"></i>&nbsp Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="http://localhost/login/logout.php"><i class="fa fa-user"></i>&nbsp Logout</a>
