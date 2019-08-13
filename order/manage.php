@@ -37,15 +37,16 @@ require_once "../database/config.php";
 
 $sql="select * from orders";
 $result=mysqli_query($conn,$sql);
-var_dump($result);
 if(mysqli_num_rows($result)>0)
 {
 	$sn=1;
-	$customer_id = mysqli_fetch_assoc($result)['customerid'];
-	$sql1= "select * from customer where cid='$customer_id'";
-	$customer =mysqli_fetch_assoc(mysqli_query($conn,$sql1));
+
 	while($row=mysqli_fetch_assoc($result))
-	{?>
+	{
+		$customer_id = $row['customerid'];
+		$sql1= "select * from customer where cid='$customer_id'";
+		$customer =mysqli_fetch_assoc(mysqli_query($conn,$sql1));
+		?>
 		<tr>
 		<td><?php echo $sn; ?> </td>
 		<td> <?php echo $row['oid'];?></td>
