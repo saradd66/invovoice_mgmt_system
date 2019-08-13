@@ -1,14 +1,9 @@
 <?php
+require_once "../database/config.php";
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 $cname=$address=$price=0;
-$name='localhost';
-$uname='root';
-$pwd='';
-$db='login';
-$conn=mysqli_connect($name,$uname,$pwd,$db);
-if(!$conn){
-	die("connection failed".mysqli_connect_error());
-}
+
 $cname=$_POST['name'];
 $address=$_POST['address'];
 

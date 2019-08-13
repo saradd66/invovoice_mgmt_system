@@ -33,30 +33,23 @@
 	</thead>
 <tbody>
 <?php 
-$sname='localhost';
-$uname='root';
-$pwd='';
-$db='login';
-$conn=mysqli_connect($sname,$uname,$pwd,$db);
-if(!$conn)
-{
-	die('connectin failed'.mysqli_connect_error());
-}
-$sql="select * from orders"
-$sql1="select customer.name from customer where cid=(select customerid from orders)";
+require_once "../database/config.php";
+
+$sql="select * from orders";
 $result=mysqli_query($conn,$sql);
-$result1=mysqli_query($conn,$sql1);
 if(mysqli_num_rows($result)>0)
 {
 	$sn=1;
-	$row1=mysqli_fetch_assoc($result1);
+	$customer_id = $row['customerid'];
+	$sql1= "select customer.name from customer where cid='$customer_id'";
+	$customer =mysqli_fetch_assoc(mysqli_query($conn,$sql1));
 	while($row=mysqli_fetch_assoc($result))
 	{?>
 		<tr>
 		<td><?php echo $sn; ?> </td>
 		<td> <?php echo $row['id'];?></td>
 		<td> <?php echo $row['customerid'];?></td>
-		<td> <?php echo $row1['name'];?></td>
+		<td> <?php echo $customer["name"];?></td>
 		<td><a href="edit.php?id=<?php echo $row['id']; ?>">Detail</a></td>
 		</tr>
 	<?php 

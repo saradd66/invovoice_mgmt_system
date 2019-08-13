@@ -10,7 +10,7 @@ if(isset($_SESSION["loggedinc"]) && $_SESSION["loggedinc"] === true){
     exit;
 }
  
-require_once "./database/config.php";
+require_once "database/config.php";
  
 $email = $password = "";
 $email_err = $password_err = "";
@@ -28,17 +28,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password_err = "Please enter your password.";
     } else{
         $password = trim($_POST["password"]);
-    }
-  
-    
-        
-        $conn=mysqli_connect('localhost','root','','login');
-   
+    }   
         
         $query = "SELECT * FROM user WHERE email = '$email' and password='$password'";
-        $result=mysqli_num_rows(mysqli_query($conn,$query));
-        /*if($result==1){
-            if ($result["Type"]=="Admin"){ 
+        $user = mysqli_query($conn,$query);
+        $user_result = mysqli_fetch_assoc($user);
+        $result=mysqli_num_rows($user);
+        if($result==1){
+            if ($user_result["Type"]=="Admin"){ 
             session_start();
                             
             // Store data in session variables
@@ -62,8 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 else{
   echo "<script> alert ('email or password incorrect');</script>";
-}*/      var_dump($result);     
-    }         
+    } }        
 ?>
 
 <!DOCTYPE html>

@@ -1,14 +1,8 @@
 <?php
 
 $customerName=$productName=$quantity=0;
-$name='localhost';
-$uname='root';
-$pwd='';
-$db='login';
-$conn=mysqli_connect($name,$uname,$pwd,$db);
-if(!$conn){
-	die("connection failed".mysqli_connect_error());
-}
+require_once "../database/config.php";
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $nop=$_POST['nop'];
     $customerid=$_POST['customerid'];

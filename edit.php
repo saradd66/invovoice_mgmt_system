@@ -3,15 +3,8 @@ $pname=$quantity=$price=0;
 
 
 $pid=$_GET['pid'];
-$sname='localhost';
-$uname='root';
-$pwd='';
-$db='login';
-$conn=mysqli_connect($sname,$uname,$pwd,$db);
-if(!$conn)
-{
-	die('connectin failed'.mysqli_connect_error());
-}
+require_once "./database/config.php";
+
 $sql="select * from product where pid='$pid'";
 $result=mysqli_query($conn,$sql);
 $data=mysqli_fetch_assoc($result);

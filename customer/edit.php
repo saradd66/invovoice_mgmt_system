@@ -2,15 +2,8 @@
 $cname=$address=$price=0;
 
 $cid=$_GET['cid'];
-$sname='localhost';
-$uname='root';
-$pwd='';
-$db='login';
-$conn=mysqli_connect($sname,$uname,$pwd,$db);
-if(!$conn)
-{
-	die('connectin failed'.mysqli_connect_error());
-}
+require_once "../database/config.php";
+
 
 $sql="select * from customer where cid=".$cid;
 $result=mysqli_query($conn,$sql);
