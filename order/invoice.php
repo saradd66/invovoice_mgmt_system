@@ -10,7 +10,6 @@ $customer_detail = mysqli_fetch_assoc(mysqli_query($conn, $customer_query));
 $cart_query = "select * from `cart` where `orderId` = '$order_id'";
 $cart_result = mysqli_query($conn, $cart_query);
 $cart_detail_arr = mysqli_fetch_all($cart_result);
-echo mysqli_error($conn);
 
 ?>
 <!DOCTYPE html>
